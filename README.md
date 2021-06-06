@@ -33,3 +33,42 @@ git commit -m "commit 信息"
 ```
 git push origin master
 ```
+
+# 管理NPM
+
+## 创建package.json
+
+```
+npm init
+```
+
+# 配置testing
+
+## 安装jasmine
+
+```
+npm install -D jasmine
+```
+
+## 初始化jasmine
+
+```
+npx jasmine init
+```
+
+## 更新package.json
+
+```json
+{
+  ...
+  "scripts": {
+    "test": "jasmine"
+  },
+}
+```
+
+## 运行测试
+
+```
+npm test
+```

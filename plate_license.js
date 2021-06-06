@@ -16,7 +16,4 @@ class PlateLicense {
   }
 }
 
-// 创建一个class instance
-const pl = new PlateLicense();
-
-console.log(pl.getAllLicenses());
+module.exports = PlateLicense;

@@ -1,0 +1,22 @@
+{
+  "name": "plate_license",
+  "version": "1.0.0",
+  "description": "## Start Git",
+  "main": "plate_license.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zidianlyu/plate_license.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zidianlyu/plate_license/issues"
+  },
+  "homepage": "https://github.com/zidianlyu/plate_license#readme",
+  "devDependencies": {
+    "jasmine": "^3.7.0"
+  }
+}
