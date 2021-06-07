@@ -4,7 +4,7 @@
   "description": "## Start Git",
   "main": "plate_license.js",
   "scripts": {
-    "test": "jasmine"
+    "test": "nyc jasmine-node test --verbose"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/zidianlyu/plate_license#readme",
   "devDependencies": {
-    "jasmine": "^3.7.0"
+    "jasmine": "^3.7.0",
+    "jasmine-node": "^3.0.0",
+    "nyc": "^15.1.0"
   }
 }

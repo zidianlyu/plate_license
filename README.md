@@ -72,3 +72,24 @@ npx jasmine init
 ```
 npm test
 ```
+
+
+## 讲所有测试放到一个test文件夹下面
+
+```
+jasmine-node test
+```
+
+会运行所有在test文件夹下面的测试
+
+## 将每一个测试的细节都打印出来
+
+```
+jasmine-node test --verbose
+```
+
+## 将所有的test coverage打印出来
+
+```
+nyc jasmine-node test --verbose
+```
