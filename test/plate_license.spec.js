@@ -52,3 +52,14 @@ describe('#3 Generate plate license', () => {
     expect(pl.getAllLicenses().length).toBe(2);
   });
 });
+
+describe('#2 License generator essential', () => {
+  it('can generate 50k plate license functionally', () => {
+    const COUNT = 50000;
+    for (let i = 0; i < COUNT; i++) {
+      pl.generateNewLicense();
+    }
+    expect(pl.getAllLicenses().length).toBe(50001);
+    expect(pl.licenseSet.size).toBe(50001);
+  });
+});

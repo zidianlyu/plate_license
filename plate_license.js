@@ -9,6 +9,8 @@ class PlateLicense {
   constructor() {
     // 可以放class variable
     this.licenses = [MOCK_LICENSE_OBJECT];
+    this.licenseSet = new Set();
+    this.licenseSet.add(MOCK_LICENSE_OBJECT.license);
   }
 
   getAllLicenses() {
@@ -25,7 +27,8 @@ class PlateLicense {
     // ascii conversion => 'A', 'B'...'Z'
     const letters = letterCodes.map((code) => String.fromCharCode(code + 65));
 
-    const licenseNumber =
+    // generator helper
+    const buildLicenseNumber = () =>
       this._getRandomItemFromArray(numbers) +
       this._getRandomItemFromArray(letters) +
       this._getRandomItemFromArray(letters) +
@@ -34,6 +37,15 @@ class PlateLicense {
       this._getRandomItemFromArray(numbers) +
       this._getRandomItemFromArray(numbers);
 
+    // make sure the generated license number be unique.
+    let licenseNumber = buildLicenseNumber();
+    while (this.hasLicenseNumber(licenseNumber)) {
+      licenseNumber = buildLicenseNumber();
+    }
+
+    // put the valid licenseNumber into the set
+    this.licenseSet.add(licenseNumber);
+
     const licenseObject = {
       license: licenseNumber, // string
       registered: new Date().getTime(), // UTC timestamp
@@ -41,6 +53,10 @@ class PlateLicense {
     };
     this.licenses.push(licenseObject);
     return licenseObject;
+  }
+
+  hasLicenseNumber(license) {
+    return this.licenseSet.has(license);
   }
 
   _getRandomItemFromArray(arr) {
