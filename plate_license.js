@@ -1,8 +1,11 @@
+const fs = require('fs');
+
 const MOCK_LICENSE_OBJECT = {
   license: '6LZD666', // string
   registered: 1622953087393, // UTC timestamp
   status: 'REGISTERED', // string
 };
+const LICENSES_FILE = './licenses.json';
 
 class PlateLicense {
   // 构建class的时候第一个会跑的method
@@ -13,11 +16,11 @@ class PlateLicense {
     this.licenseSet.add(MOCK_LICENSE_OBJECT.license);
   }
 
-  getAllLicenses() {
+  getLicenses() {
     return this.licenses;
   }
 
-  generateNewLicense() {
+  generateLicense() {
     const numbers = Array(10)
       .fill()
       .map((_, i) => i.toString());
@@ -67,9 +70,28 @@ class PlateLicense {
   batchGenerateLicenses(n) {
     const newLicenseObjects = [];
     while (n-- > 0) {
-      newLicenseObjects.push(this.generateNewLicense());
+      newLicenseObjects.push(this.generateLicense());
     }
     return newLicenseObjects;
+  }
+
+  backupLicenses() {
+    // fs.writeFile(<store_file_path>, <data>, <callback>)
+    return fs.writeFileSync(
+      LICENSES_FILE,
+      JSON.stringify(this.licenses, null, 2),
+      () => {}
+    );
+  }
+
+  restoreLicenses() {
+    return fs.readFile(LICENSES_FILE, 'utf8', (_, fileData) => {
+      this.licenses = JSON.parse(fileData);
+    });
+  }
+
+  removeLicensesFile() {
+    return fs.unlink(LICENSES_FILE, () => {});
   }
 }
 
