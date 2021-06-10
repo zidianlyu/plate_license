@@ -77,11 +77,7 @@ class PlateLicense {
 
   backupLicenses() {
     // fs.writeFile(<store_file_path>, <data>, <callback>)
-    return fs.writeFileSync(
-      LICENSES_FILE,
-      JSON.stringify(this.licenses, null, 2),
-      () => {}
-    );
+    fs.writeFileSync(LICENSES_FILE, JSON.stringify(this.licenses, null, 2));
   }
 
   restoreLicenses() {
