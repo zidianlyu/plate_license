@@ -63,6 +63,14 @@ class PlateLicense {
     const randomIndex = Math.floor(Math.random() * arr.length);
     return arr[randomIndex];
   }
+
+  batchGenerateLicenses(n) {
+    const newLicenseObjects = [];
+    while (n-- > 0) {
+      newLicenseObjects.push(this.generateNewLicense());
+    }
+    return newLicenseObjects;
+  }
 }
 
 module.exports = PlateLicense;
