@@ -86,13 +86,17 @@ describe('#5 Anti-hack', () => {
     // Step 2: Add samples
     pl.batchGenerateLicenses(10);
     expect(pl.getLicenses().length).toBe(11);
+    const storedLicenses = pl.getLicenses();
     // Step 3: Backup
     pl.backupLicenses();
     // Step 4: Mock system crush
     pl = new PlateLicense();
+    expect(pl.getLicenses().length).toBe(1);
     // Step 5: Restore everything
     await pl.restoreLicenses();
     expect(pl.getLicenses().length).toBe(11);
+    const restoreLicenses = pl.getLicenses();
+    expect(storedLicenses).toEqual(restoreLicenses);
     pl.removeLicensesFile();
   });
 });
