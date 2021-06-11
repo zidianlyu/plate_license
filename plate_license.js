@@ -89,6 +89,23 @@ class PlateLicense {
   removeLicensesFile() {
     return fs.unlink(LICENSES_FILE, () => {});
   }
+
+  getLicense(licenseNum) {
+    for (const licenseObj of this.licenses) {
+      if (licenseObj.license === licenseNum) {
+        return licenseObj;
+      }
+    }
+    return null;
+  }
+
+  // i.e. this.updateLicenseStatus('6LZD666', 'SUSPENDED')
+  updateLicenseStatus(licenseNum, updateStatus) {
+    const licenseObj = this.getLicense(licenseNum);
+    if (licenseObj) {
+      licenseObj.status = updateStatus;
+    }
+  }
 }
 
 module.exports = PlateLicense;

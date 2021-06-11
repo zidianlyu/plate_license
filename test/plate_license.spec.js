@@ -100,3 +100,32 @@ describe('#5 Anti-hack', () => {
     pl.removeLicensesFile();
   });
 });
+
+describe('#6 Research license', () => {
+  it('detects default existing license object', () => {
+    expect(pl.getLicense('6LZD666')).toEqual({
+      license: '6LZD666', // string
+      registered: 1622953087393, // UTC timestamp
+      status: 'REGISTERED', // string
+    });
+  });
+
+  it('return null for non-existing license', () => {
+    expect(pl.getLicense('7XJP777')).toBe(null);
+  });
+
+  it('update the status to SUSPENDED', () => {
+    pl.updateLicenseStatus('6LZD666', 'SUSPENDED');
+    const licenseObj = pl.getLicense('6LZD666');
+    expect(licenseObj).toBeDefined();
+    expect(licenseObj.status).toBe('SUSPENDED');
+  });
+
+  it('will not update non-exist license', () => {
+    pl.updateLicenseStatus('6LZD666', 'REGISTERED');
+    const defaultCase = pl.getLicense('6LZD666');
+    expect(defaultCase.status).toBe('REGISTERED');
+    pl.updateLicenseStatus('7XJP777', 'REGISTERED');
+    expect(defaultCase.status).toBe('REGISTERED');
+  });
+});
