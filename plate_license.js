@@ -115,6 +115,20 @@ class PlateLicense {
     // update license set
     this.licenseSet.delete(licenseNum);
   }
+
+  searchSuspiciousLicenses() {
+    return this.licenses.filter((licenseObj) => {
+      const licenseNum = licenseObj.license;
+      let countX = 0;
+      let count7 = 0;
+      for (let i = 0; i < licenseNum.length; i++) {
+        const letter = licenseNum[i];
+        if (letter === 'X') countX++;
+        if (letter === '7' && i >= 4) count7++;
+      }
+      return countX === 2 && count7 === 1;
+    });
+  }
 }
 
 module.exports = PlateLicense;
