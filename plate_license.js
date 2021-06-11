@@ -106,6 +106,15 @@ class PlateLicense {
       licenseObj.status = updateStatus;
     }
   }
+
+  unRegisterLicense(licenseNum) {
+    // update license object array
+    this.licenses = this.licenses.filter(
+      (licenseObj) => licenseObj.license !== licenseNum
+    );
+    // update license set
+    this.licenseSet.delete(licenseNum);
+  }
 }
 
 module.exports = PlateLicense;

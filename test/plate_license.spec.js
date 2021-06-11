@@ -129,3 +129,13 @@ describe('#6 Research license', () => {
     expect(defaultCase.status).toBe('REGISTERED');
   });
 });
+
+describe('#7 UnRegister license', () => {
+  it('should work!', () => {
+    expect(pl.licenses.length).toBe(1);
+    expect(pl.licenseSet.size).toBe(1);
+    pl.unRegisterLicense('6LZD666');
+    expect(pl.licenses.length).toBe(0);
+    expect(pl.licenseSet.size).toBe(0);
+  });
+});
