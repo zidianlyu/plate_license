@@ -179,4 +179,16 @@ describe('#12 For the stats-men', () => {
       expect(sum).toBe(21);
     }
   });
+
+  it('the magic licenses are sorted in ascending order', () => {
+    pl.batchGenerateLicenses(10000);
+    const magicLicenses = pl.getMagicLicenses();
+    if (magicLicenses.length >= 2) {
+      for (let i = 0; i < magicLicenses.length - 1; i++) {
+        const lo = magicLicenses[i];
+        const hi = magicLicenses[i + 1];
+        expect(lo).toBeLessThan(hi);
+      }
+    }
+  });
 });

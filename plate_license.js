@@ -147,7 +147,7 @@ class PlateLicense {
         return acc;
       }, 0);
       return sum === 21;
-    });
+    }).sort();
   }
 }
 
