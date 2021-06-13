@@ -141,9 +141,10 @@ describe('#7 UnRegister license', () => {
 });
 
 describe('#9 Get suspicious licenses', () => {
+  pl.batchGenerateLicenses(10000);
+  const licenses = pl.searchSuspiciousLicenses();
+
   it('can get qualified suspicious licenses', () => {
-    pl.batchGenerateLicenses(10000);
-    const licenses = pl.searchSuspiciousLicenses();
     const randomLicense = pl._getRandomItemFromArray(licenses);
     if (randomLicense) {
       const licenseNum = randomLicense.license;
@@ -152,6 +153,15 @@ describe('#9 Get suspicious licenses', () => {
       expect(letters.filter((item) => item === 'X').length).toBe(2);
       expect(last3Digits.filter((item) => item === '7').length).toBe(1);
     }
-    console.log(licenses.map(({license}) => license));
+  });
+
+  it('sorts in descending order', () => {
+    if (licenses.length >= 2) {
+      for (let i = 0; i < licenses.length - 1; i++) {
+        const lo = licenses[i];
+        const hi = licenses[i + 1];
+        expect(lo.registered).not.toBeLessThan(hi.registered);
+      }
+    }
   });
 });
