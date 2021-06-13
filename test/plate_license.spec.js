@@ -194,14 +194,23 @@ describe('#12 For the stats-men', () => {
     pl.batchGenerateLicenses(1000);
     const doubleLicenses = pl.getDoubleLicenses();
     const licenseNum = pl._getRandomItemFromArray(doubleLicenses);
-    if (licenseNum) {
-      // i.e. 'LZD' => Set(['L', 'Z', 'D]) => size 3
-      // i.e. 'ZZL' => Set(['L', 'Z]) => size 2
-      const letterSet = new Set(); // read home many distinct letters
-      for (const letter of licenseNum.slice(1, 4)) {
-        letterSet.add(letter);
-      }
-      expect(letterSet.size).toBe(2);
+    // i.e. 'LZD' => Set(['L', 'Z', 'D]) => size 3
+    // i.e. 'ZZL' => Set(['L', 'Z]) => size 2
+    const letterSet = new Set(); // read home many distinct letters
+    for (const letter of licenseNum.slice(1, 4)) {
+      letterSet.add(letter);
     }
+    expect(letterSet.size).toBe(2);
+  });
+
+  it('can get the lucky licenses', () => {
+    pl.batchGenerateLicenses(1000);
+    const doubleLicenses = pl.getLuckyLicenses();
+    const licenseNum = pl._getRandomItemFromArray(doubleLicenses);
+    const letterSet = new Set(); // read home many distinct letters
+    for (const letter of licenseNum.slice(1, 4)) {
+      letterSet.add(letter);
+    }
+    expect(letterSet.size).toBe(1);
   });
 });

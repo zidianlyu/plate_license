@@ -171,6 +171,13 @@ class PlateLicense {
       return Object.values(letterMap).some((count) => count === 2);
     });
   }
+
+  getLuckyLicenses() {
+    return [...this.licenseSet].filter((licenseNum) => {
+      const letterPart = licenseNum.slice(1, 4);
+      return new Set(letterPart.split('')).size === 1;
+    });
+  }
 }
 
 module.exports = PlateLicense;
