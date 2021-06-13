@@ -134,20 +134,42 @@ class PlateLicense {
 
   getMagicLicenses() {
     // Step1: convert set to array
-    return [...this.licenseSet].filter((licenseNum) => {
-      // Step2: extract the numbers part from license number.
-      // i.e. '6LZD666' => '6666'
-      // !iNaN => isNumber
-      const numbers = licenseNum.split('').filter((el) => !isNaN(el));
+    return [...this.licenseSet]
+      .filter((licenseNum) => {
+        // Step2: extract the numbers part from license number.
+        // i.e. '6LZD666' => '6666'
+        // !iNaN => isNumber
+        const numbers = licenseNum.split('').filter((el) => !isNaN(el));
 
-      // Step3: calculate the sum from the numbers array.
-      // i.e. '6666' => 24
-      const sum = numbers.reduce((acc, num) => {
-        acc += Number(num);
+        // Step3: calculate the sum from the numbers array.
+        // i.e. '6666' => 24
+        const sum = numbers.reduce((acc, num) => {
+          acc += Number(num);
+          return acc;
+        }, 0);
+        return sum === 21;
+      })
+      .sort();
+  }
+
+  getDoubleLicenses() {
+    return [...this.licenseSet].filter((licenseNum) => {
+      // Step 1: get the list of letters from each license
+      // i.e. ['6LZD666'] => ['LZD']
+      const letterPart = licenseNum.slice(1, 4);
+
+      // Step 2: build the letter-count map
+      // i.e. 'LZZ' => {'L': 1, 'Z': 2}
+      const letterMap = letterPart.split('').reduce((acc, letter) => {
+        acc[letter] = acc[letter] + 1 || 1;
         return acc;
-      }, 0);
-      return sum === 21;
-    }).sort();
+      }, {});
+
+      // Step3: check if any val (the 'count') equals to 2
+      // i.e. Object.values({'L': 1, 'Z': 2}) => [1, 2]
+      // [1, 2].some((count) => count === 2) gets true
+      return Object.values(letterMap).some((count) => count === 2);
+    });
   }
 }
 

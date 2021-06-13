@@ -168,27 +168,40 @@ describe('#9 Get suspicious licenses', () => {
 
 describe('#12 For the stats-men', () => {
   it('can get the magic licenses (sum of num equal to 21)', () => {
-    pl.batchGenerateLicenses(10000);
+    pl.batchGenerateLicenses(1000);
     const magicLicenses = pl.getMagicLicenses();
-    for (const licenseNum of magicLicenses) {
-      const sum =
-        Number(licenseNum[0]) +
-        Number(licenseNum[4]) +
-        Number(licenseNum[5]) +
-        Number(licenseNum[6]);
-      expect(sum).toBe(21);
-    }
+    console.log(magicLicenses);
+    const licenseNum = pl._getRandomItemFromArray(magicLicenses);
+    const sum =
+      Number(licenseNum[0]) +
+      Number(licenseNum[4]) +
+      Number(licenseNum[5]) +
+      Number(licenseNum[6]);
+    expect(sum).toBe(21);
   });
 
   it('the magic licenses are sorted in ascending order', () => {
-    pl.batchGenerateLicenses(10000);
+    pl.batchGenerateLicenses(1000);
     const magicLicenses = pl.getMagicLicenses();
     if (magicLicenses.length >= 2) {
-      for (let i = 0; i < magicLicenses.length - 1; i++) {
-        const lo = magicLicenses[i];
-        const hi = magicLicenses[i + 1];
-        expect(lo).toBeLessThan(hi);
+      const lo = magicLicenses[0];
+      const hi = pl._getRandomItemFromArray(magicLicenses.slice(1));
+      expect(lo).toBeLessThan(hi);
+    }
+  });
+
+  it('can get the double letter licenses', () => {
+    pl.batchGenerateLicenses(1000);
+    const doubleLicenses = pl.getDoubleLicenses();
+    const licenseNum = pl._getRandomItemFromArray(doubleLicenses);
+    if (licenseNum) {
+      // i.e. 'LZD' => Set(['L', 'Z', 'D]) => size 3
+      // i.e. 'ZZL' => Set(['L', 'Z]) => size 2
+      const letterSet = new Set(); // read home many distinct letters
+      for (const letter of licenseNum.slice(1, 4)) {
+        letterSet.add(letter);
       }
+      expect(letterSet.size).toBe(2);
     }
   });
 });
