@@ -178,6 +178,20 @@ class PlateLicense {
       return new Set(letterPart.split('')).size === 1;
     });
   }
+
+  getRoyalLicenses() {
+    // Step 1: get lucky licenses and filter from them
+    const licenseNumbers = this.getLuckyLicenses();
+
+    // Step 2: get all the number parts (4 numbers)
+    return licenseNumbers.filter((licenseNum) => {
+      const numberParts = licenseNum
+        .split('')
+        .filter((letter) => !isNaN(letter));
+      // Step 3: new Set(numbers).size <= 3
+      return new Set(numberParts).size <= 3;
+    });
+  }
 }
 
 module.exports = PlateLicense;

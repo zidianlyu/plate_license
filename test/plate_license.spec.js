@@ -170,7 +170,6 @@ describe('#12 For the stats-men', () => {
   it('can get the magic licenses (sum of num equal to 21)', () => {
     pl.batchGenerateLicenses(1000);
     const magicLicenses = pl.getMagicLicenses();
-    console.log(magicLicenses);
     const licenseNum = pl._getRandomItemFromArray(magicLicenses);
     const sum =
       Number(licenseNum[0]) +
@@ -205,12 +204,25 @@ describe('#12 For the stats-men', () => {
 
   it('can get the lucky licenses', () => {
     pl.batchGenerateLicenses(1000);
-    const doubleLicenses = pl.getLuckyLicenses();
-    const licenseNum = pl._getRandomItemFromArray(doubleLicenses);
-    const letterSet = new Set(); // read home many distinct letters
-    for (const letter of licenseNum.slice(1, 4)) {
-      letterSet.add(letter);
+    const luckyLicenses = pl.getLuckyLicenses();
+    const licenseNum = pl._getRandomItemFromArray(luckyLicenses);
+    if (licenseNum) {
+      const letterSet = new Set(); // read home many distinct letters
+      for (const letter of licenseNum.slice(1, 4)) {
+        letterSet.add(letter);
+      }
+      expect(letterSet.size).toBe(1);
     }
-    expect(letterSet.size).toBe(1);
+  });
+
+  it('can get the royal licenses', () => {
+    pl.batchGenerateLicenses(4000);
+    const royalLicenses = pl.getRoyalLicenses();
+    for (const licenseNum of royalLicenses) {
+      const numberParts = licenseNum
+        .split('')
+        .filter((letter) => !isNaN(letter));
+      expect(new Set(numberParts).size).toBeLessThan(4);
+    }
   });
 });
