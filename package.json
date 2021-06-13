@@ -4,7 +4,8 @@
   "description": "## Start Git",
   "main": "plate_license.js",
   "scripts": {
-    "test": "nyc jasmine-node test --verbose"
+    "test": "nyc jasmine-node test --verbose",
+    "test-skip": "nyc jasmine-node test"
   },
   "repository": {
     "type": "git",

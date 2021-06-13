@@ -165,3 +165,18 @@ describe('#9 Get suspicious licenses', () => {
     }
   });
 });
+
+describe('#12 For the stats-men', () => {
+  it('can get the magic licenses (sum of num equal to 21)', () => {
+    pl.batchGenerateLicenses(10000);
+    const magicLicenses = pl.getMagicLicenses();
+    for (const licenseNum of magicLicenses) {
+      const sum =
+        Number(licenseNum[0]) +
+        Number(licenseNum[4]) +
+        Number(licenseNum[5]) +
+        Number(licenseNum[6]);
+      expect(sum).toBe(21);
+    }
+  });
+});

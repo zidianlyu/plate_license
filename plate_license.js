@@ -131,6 +131,24 @@ class PlateLicense {
       })
       .sort((a, b) => b.registered - a.registered);
   }
+
+  getMagicLicenses() {
+    // Step1: convert set to array
+    return [...this.licenseSet].filter((licenseNum) => {
+      // Step2: extract the numbers part from license number.
+      // i.e. '6LZD666' => '6666'
+      // !iNaN => isNumber
+      const numbers = licenseNum.split('').filter((el) => !isNaN(el));
+
+      // Step3: calculate the sum from the numbers array.
+      // i.e. '6666' => 24
+      const sum = numbers.reduce((acc, num) => {
+        acc += Number(num);
+        return acc;
+      }, 0);
+      return sum === 21;
+    });
+  }
 }
 
 module.exports = PlateLicense;
