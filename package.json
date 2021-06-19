@@ -21,5 +21,6 @@
     "jasmine": "^3.7.0",
     "jasmine-node": "^3.0.0",
     "nyc": "^15.1.0"
-  }
+  },
+  "dependencies": {}
 }

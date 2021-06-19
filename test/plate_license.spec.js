@@ -227,9 +227,24 @@ describe('#12 For the stats-men', () => {
   });
 });
 
-ddescribe('#11 For license prefix tree', () => {
-  iit('add the default license to tree', () => {
-    pl.batchGenerateLicenses(40);
+describe('#11 For license prefix tree', () => {
+  it('search the tree by DFS', () => {
+    pl.addLicenseToTree('6LZD666');
+    pl.addLicenseToTree('6LZD667');
+    pl.addLicenseToTree('6LZS666');
+    pl.addLicenseToTree('6LZS668');
+    pl.addLicenseToTree('6LBD666');
+    pl.addLicenseToTree('6LBD669');
+    pl.addLicenseToTree('5LBD669');
+    pl.addLicenseToTree('4LBD669');
+    pl.addLicenseToTree('3LBD669');
+    pl.addLicenseToTree('2LBD669');
+    pl.addLicenseToTree('1LBD669');
     pl.printLicenseTree();
+    let count = pl.searchLicensesByDFS('6');
+    expect(count).toBe(6);
+
+    count = pl.searchLicensesByDFS('5');
+    expect(count).toBe(1);
   });
 });

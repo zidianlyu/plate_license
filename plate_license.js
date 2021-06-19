@@ -29,10 +29,35 @@ class PlateLicense {
     }
   }
 
+  // search the count of license that starts with number k.
+  searchLicensesByDFS(k) {
+    let count = 0;
+    const stack = [this.licenseTree[k]];
+    while (stack.length) {
+      const node = stack.pop();
+      // check if empty object {}, also known as leaf node
+      if (Object.keys(node).length === 0) {
+        count++;
+      } else {
+        // if have children, add to stack.
+        for (const childNode of Object.values(node)) {
+          stack.push(childNode);
+        }
+        /**
+        const childNodes = Object.values(node)
+        for(let i = childNodes.length - 1; i >= 0; i++) {
+          stack.push(childNodes[i])
+        }
+         */
+      }
+    }
+    return count;
+  }
+
   printLicenseTree() {
     const treeInJSON = JSON.stringify(this.licenseTree, null, 2);
     console.log(treeInJSON);
-    fs.writeFileSync('./tree.json', treeInJSON);
+    // fs.writeFileSync('./tree.json', treeInJSON);
   }
 
   getLicenses() {
