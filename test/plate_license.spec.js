@@ -226,3 +226,10 @@ describe('#12 For the stats-men', () => {
     }
   });
 });
+
+ddescribe('#11 For license prefix tree', () => {
+  iit('add the default license to tree', () => {
+    pl.batchGenerateLicenses(40);
+    pl.printLicenseTree();
+  });
+});

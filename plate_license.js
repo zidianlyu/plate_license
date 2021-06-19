@@ -14,6 +14,25 @@ class PlateLicense {
     this.licenses = [MOCK_LICENSE_OBJECT];
     this.licenseSet = new Set();
     this.licenseSet.add(MOCK_LICENSE_OBJECT.license);
+    this.licenseTree = {};
+    this.addLicenseToTree(MOCK_LICENSE_OBJECT.license);
+  }
+
+  // i.e. '6LZD666' converts to '6'->'L'->'Z'->'D'->'6'->'6'->'6'
+  addLicenseToTree(licenseNum) {
+    let node = this.licenseTree; // get the point of the tree object [tree root]
+    for (const letter of licenseNum) {
+      if (!node[letter]) {
+        node[letter] = {}; // 为了可以继续往下加东西
+      }
+      node = node[letter]; // 切换指针到下一级
+    }
+  }
+
+  printLicenseTree() {
+    const treeInJSON = JSON.stringify(this.licenseTree, null, 2);
+    console.log(treeInJSON);
+    fs.writeFileSync('./tree.json', treeInJSON);
   }
 
   getLicenses() {
@@ -48,6 +67,9 @@ class PlateLicense {
 
     // put the valid licenseNumber into the set
     this.licenseSet.add(licenseNumber);
+
+    // add licenseNumber into the tree
+    this.addLicenseToTree(licenseNumber);
 
     const licenseObject = {
       license: licenseNumber, // string

@@ -5,7 +5,7 @@
   "main": "plate_license.js",
   "scripts": {
     "test": "nyc jasmine-node test --verbose",
-    "test-skip": "nyc jasmine-node test"
+    "short": "jasmine-node test"
   },
   "repository": {
     "type": "git",
