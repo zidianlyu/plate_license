@@ -243,8 +243,21 @@ describe('#11 For license prefix tree', () => {
     pl.printLicenseTree();
     let count = pl.searchLicensesByDFS('6');
     expect(count).toBe(6);
-
     count = pl.searchLicensesByDFS('5');
+    expect(count).toBe(1);
+  });
+
+  it('search the tree by BFS', () => {
+    pl.addLicenseToTree('7LZD666');
+    pl.addLicenseToTree('7LZD667');
+    pl.addLicenseToTree('7LZS666');
+    pl.addLicenseToTree('7LZS668');
+    pl.addLicenseToTree('8LBD669');
+    pl.addLicenseToTree('9LBD669');
+    pl.printLicenseTree();
+    let count = pl.searchLicensesByBFS('7');
+    expect(count).toBe(4);
+    count = pl.searchLicensesByBFS('9');
     expect(count).toBe(1);
   });
 });

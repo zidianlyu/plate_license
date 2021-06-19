@@ -54,6 +54,25 @@ class PlateLicense {
     return count;
   }
 
+  searchLicensesByBFS(k) {
+    let count = 0;
+    const queue = [this.licenseTree[k]];
+    while (queue.length) {
+      const node = queue.shift();
+      // check if empty object {}, also known as leaf node
+      if (Object.keys(node).length === 0) {
+        count++;
+      } else {
+        // if have children, add to queue.
+        for (const childNode of Object.values(node)) {
+          queue.push(childNode);
+        }
+      }
+    }
+    return count;
+  }
+
+
   printLicenseTree() {
     const treeInJSON = JSON.stringify(this.licenseTree, null, 2);
     console.log(treeInJSON);
